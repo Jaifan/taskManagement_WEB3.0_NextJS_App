@@ -20,19 +20,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className='p-6 flex flex-col items-center'>
        <Header/>
        {isWeb3Enabled ? (
         <div>
           {supportChains.includes(parseInt(chainId).toString()) ? (
             <div> 
-              <h2>Chain Network : {chainName[parseInt(chainId).toString()]}</h2>
+              <h2 className='text-xl font-semibold flex flex-col items-center'>Chain Network : {chainName[parseInt(chainId).toString()]}</h2>
               <TodoList/>
             </div>
           ) 
-          : (<div>Please Switch to a supported chain Network. The supported chain Network is Goerli</div>)}
+          : (<div className='text-xl font-semibold'>Please Switch to a supported chain Network. The supported chain Network is Goerli</div>)}
         </div>
-       ) : (<div>Please Connect to a Wallet</div>) }
+       ) : (<div className='text-xl font-semibold'>Please Connect to a Wallet</div>) }
       </main>
     </>
   )

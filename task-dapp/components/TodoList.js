@@ -2,12 +2,7 @@ import { useEffect, useState } from "react"
 import {useMoralis, useWeb3Contract} from "react-moralis"
 import {useNotification} from "web3uikit"
 import {contractAddress,abi} from "../constant"
-const dTaskList = [
-    "Add money",
-    "Everything OK",
-    "All is Well",
-    "Web3.0 Applications"
-]
+
 export default function TodoList () {
     const [taskName, setTaskName] = useState("")
     const [taskList, setTaskList] = useState([])
@@ -102,12 +97,14 @@ export default function TodoList () {
         })
     }
     const List =({item,taskIndex})=> (
-        <div>
-        <h4>Task Number : {taskIndex}</h4>
-        <h3>{item.taskName}</h3>
-        <p>Status : {item.taskStatus ===0 ? "Pending" : "Completed"}</p>
-        {item.taskStatus===0 ? <button onClick={()=> handleStatusChange(taskIndex)}>Make Complete</button>:<button onClick={()=> handleStatusChange(taskIndex)}>Make Pending</button>}
-        <button onClick={()=> handleDeleteTask(taskIndex)}>Delete Task</button>
+        <div className="bg-green-100 mb-3 p-3 rounded-xl">
+        <h4 className="text-lg font-semibold">Task Number : {taskIndex}</h4>
+        <h3 className="text-xl font-bold flex flex-col items-center mt-3">{item.taskName}</h3>
+        <p className="text-lg font-semibold flex flex-col items-center mb-3">Status : {item.taskStatus ===0 ? "Pending" : "Completed"}</p>
+        <div className="flex justify-center">
+            {item.taskStatus===0 ? <button className="bg-green-400 p-2 rounded-2xl text-lg font-semibold px-5" onClick={()=> handleStatusChange(taskIndex)}>Make Complete</button>:<button className="bg-green-400 p-2 rounded-2xl text-lg font-semibold px-5" onClick={()=> handleStatusChange(taskIndex)}>Make Pending</button>}
+            <button className="bg-red-400 p-2 rounded-2xl text-lg font-semibold px-5 ml-3" onClick={()=> handleDeleteTask(taskIndex)}>Delete Task</button>
+        </div>
 
        </div>
     )
@@ -124,16 +121,16 @@ export default function TodoList () {
     return (
         <div>
             <div>
-                <form onSubmit={handleTaskSubmit}>
-                    <label>Enter Your Task Name</label><br/>
-                    <input type="text" name="taskName" onChange={handleChangeTask}/>
+                <form onSubmit={handleTaskSubmit} className="bg-green-200 p-7 rounded-xl mb-10">
+                    <label className='text-l font-bold mb-2'>Enter Your Task Name</label><br/>
+                    <input className="h-30 mr-4 rounded-xl p-3" type="text" name="taskName" onChange={handleChangeTask}/>
                     {isFetching || isLoading ? (<input type="submit" value="Add Task" disabled/>) 
-                    : (<input type="submit" value="Add Task"/>)}
+                    : (<input className="bg-green-400 p-2 rounded-2xl text-lg font-semibold px-5" type="submit" value="ADD"/>)}
                 </form>
             </div>
 
             <div>
-                <h2>Task Name List</h2>
+                <h2 className="text-2xl font-bold flex flex-col items-center mb-8">Task Name List</h2>
                {taskList.map((item, i)=> (<List key={i} item ={item} taskIndex = {taskIndex++}/>))}
             </div>
 
